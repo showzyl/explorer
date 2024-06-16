@@ -41,10 +41,8 @@ const tipMsg = computed(() => {
 // console.log(`baseStore: `, walletStateChange);
 // console.log(`baseStore: `, walletStore.suggestChain());
 
-let chainId = baseStore?.value?.currentChainId;
 let params = '';
 if (route.path === '/SIDE-Testnet' || route.path === '/wallet/unisat') {
-  chainId = 'S2-testnet-2';
   params = JSON.stringify({
     wallet: ['okex', 'unisat']
   })
@@ -101,7 +99,7 @@ if (route.path === '/SIDE-Testnet' || route.path === '/wallet/unisat') {
     </div>
   </div>
   <Teleport to="body">
-    <ping-connect-wallet :params="params" :chain-id="chainId" :hd-path="chainStore.defaultHDPath"
+    <ping-connect-wallet :params="params" :chain-id="baseStore.currentChainId" :hd-path="chainStore.defaultHDPath"
       :addr-prefix="chainStore.current?.bech32Prefix || 'cosmos'" @connect="walletStateChange"
       @keplr-config="walletStore.suggestChain()" />
   </Teleport>
